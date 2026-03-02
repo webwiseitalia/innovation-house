@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from '@studio-freight/lenis'
@@ -9,6 +10,7 @@ import {
   CircleParking, Home, Church, Castle, Footprints,
   Facebook, Instagram, X, ArrowUpRight, Minus, Plus
 } from 'lucide-react'
+import { SITE } from './constants/siteData'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -311,7 +313,7 @@ function App() {
     const body = encodeURIComponent(
       `Nome: ${formData.nome}\nEmail: ${formData.email}\nTelefono: ${formData.telefono}\nCheck-in: ${formData.checkin}\nCheck-out: ${formData.checkout}\nOspiti: ${formData.ospiti}\nCamera: ${formData.camera}\n\nMessaggio:\n${formData.messaggio}`
     )
-    window.location.href = `mailto:info@innovationhouse.it?subject=${subject}&body=${body}`
+    window.location.href = `mailto:${SITE.email}?subject=${subject}&body=${body}`
   }
 
   const navLinks = [
@@ -404,7 +406,7 @@ function App() {
       {/* ═══════════════════════ HERO ═══════════════════════ */}
       <section id="hero" ref={heroRef} className="relative min-h-screen overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroImg} alt="Innovation House vista aerea" className="hero-visual w-full h-full object-cover" />
+          <img src={heroImg} alt="Innovation House vista aerea" title="Innovation House - Vista aerea" className="hero-visual w-full h-full object-cover" loading="eager" width={1024} height={768} />
           <div className="absolute inset-0 bg-gradient-to-r from-[#1a3a4a]/75 via-[#1a3a4a]/35 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#1a3a4a]/85 via-transparent to-[#1a3a4a]/20" />
         </div>
@@ -443,7 +445,7 @@ function App() {
           </div>
 
           <div className="hero-side-img hidden lg:block absolute top-[18vh] right-[4vw] w-[28vw] max-w-[380px]">
-            <img src={poolImg} alt="Piscina" className="w-full h-[45vh] object-cover cursor-pointer rounded-sm" onClick={() => setLightbox({ open: true, img: poolImg, alt: 'Piscina con vista' })} />
+            <img src={poolImg} alt="Piscina con vista panoramica" title="Piscina - Innovation House" className="w-full h-[45vh] object-cover cursor-pointer rounded-sm" loading="eager" width={576} height={768} onClick={() => setLightbox({ open: true, img: poolImg, alt: 'Piscina con vista' })} />
             <p className="font-body text-[11px] tracking-[0.3em] uppercase text-white/70 mt-4 text-right">La piscina · Vista Golfo</p>
           </div>
         </div>
@@ -504,23 +506,29 @@ function App() {
               <div className="overflow-hidden rounded-sm">
                 <img
                   src={stairsImg}
-                  alt="Scalinata nel giardino"
+                  alt="Scalinata nel giardino di Innovation House"
+                  title="Scalinata nel giardino"
                   className="str-img-hero w-full md:w-[80%] h-[350px] md:h-[520px] object-cover cursor-pointer hover:scale-[1.03] transition-transform duration-[1.2s]"
+                  loading="lazy" width={576} height={768}
                   onClick={() => setLightbox({ open: true, img: stairsImg, alt: 'Scalinata nel giardino' })}
                 />
               </div>
 
               <img
                 src={entranceImg}
-                alt="Ingresso"
+                alt="Ingresso della guest house"
+                title="Ingresso Innovation House"
                 className="str-img-float w-[55%] md:w-[45%] h-[220px] md:h-[300px] object-cover absolute -bottom-8 md:bottom-auto md:top-[380px] right-0 md:right-[5%] shadow-2xl shadow-[#5bb8c1]/10 cursor-pointer hover:scale-[1.02] transition-transform duration-700 rounded-sm"
+                loading="lazy" width={576} height={768}
                 onClick={() => setLightbox({ open: true, img: entranceImg, alt: 'Ingresso' })}
               />
 
               <img
                 src={pondImg}
                 alt="Giardino con laghetto koi"
+                title="Giardino e laghetto koi"
                 className="str-img-offset hidden md:block w-[35%] h-[200px] object-cover mt-20 ml-[15%] cursor-pointer hover:scale-[1.02] transition-transform duration-700 rounded-sm"
+                loading="lazy" width={576} height={768}
                 onClick={() => setLightbox({ open: true, img: pondImg, alt: 'Giardino con laghetto koi' })}
               />
             </div>
@@ -582,8 +590,10 @@ function App() {
                           <div className="col-span-12 md:col-span-7">
                             <img
                               src={room.images[0]}
-                              alt={room.name}
+                              alt={`${room.name} - Innovation House La Spezia`}
+                              title={room.name}
                               className="w-full h-[280px] md:h-[450px] object-cover cursor-pointer hover:scale-[1.02] transition-transform duration-700 rounded-sm"
+                              loading="lazy" width={576} height={768}
                               onClick={() => setLightbox({ open: true, img: room.images[0], alt: room.name })}
                             />
                           </div>
@@ -591,16 +601,20 @@ function App() {
                           <div className="col-span-6 md:col-span-2 md:mt-12">
                             <img
                               src={room.images[1]}
-                              alt={`${room.name} 2`}
+                              alt={`${room.name} dettaglio`}
+                              title={`${room.name} - Dettaglio`}
                               className="w-full h-[160px] md:h-[200px] object-cover cursor-pointer hover:scale-[1.02] transition-transform duration-700 rounded-sm"
+                              loading="lazy" width={576} height={768}
                               onClick={() => setLightbox({ open: true, img: room.images[1], alt: room.name })}
                             />
                           </div>
                           <div className="col-span-6 md:col-span-3 md:-mt-4">
                             <img
                               src={room.images[2]}
-                              alt={`${room.name} 3`}
+                              alt={`${room.name} vista`}
+                              title={`${room.name} - Vista`}
                               className="w-full h-[160px] md:h-[200px] object-cover cursor-pointer hover:scale-[1.02] transition-transform duration-700 rounded-sm"
+                              loading="lazy" width={576} height={768}
                               onClick={() => setLightbox({ open: true, img: room.images[2], alt: room.name })}
                             />
                           </div>
@@ -697,7 +711,7 @@ function App() {
               { src: queenRoom1, alt: 'Camera Queen', h: 'h-[190px] md:h-[290px]', w: 'w-[240px] md:w-[360px]', mt: 'mt-12' },
             ].map((img, i) => (
               <div key={i} className={`flex-shrink-0 ${img.w} ${img.mt || ''} cursor-pointer group`} onClick={() => setLightbox({ open: true, img: img.src, alt: img.alt })}>
-                <img src={img.src} alt={img.alt} className={`w-full ${img.h} object-cover group-hover:scale-[1.03] transition-transform duration-700 rounded-sm`} />
+                <img src={img.src} alt={img.alt} title={img.alt} className={`w-full ${img.h} object-cover group-hover:scale-[1.03] transition-transform duration-700 rounded-sm`} loading="lazy" width={img.src === heroImg ? 1024 : 576} height={768} />
               </div>
             ))}
           </div>
@@ -783,7 +797,7 @@ function App() {
           <div className="grid grid-cols-12 gap-5 md:gap-6">
             <div className="ter-card col-span-12 md:col-span-7 border border-[#5bb8c1]/15 hover:border-[#5bb8c1]/30 transition-all duration-700 bg-white/80 backdrop-blur-sm overflow-hidden rounded-sm shadow-sm">
               <div className="overflow-hidden cursor-pointer" onClick={() => setLightbox({ open: true, img: heroImg, alt: 'Cinque Terre' })}>
-                <img src={heroImg} alt="Cinque Terre" className="w-full h-[200px] md:h-[260px] object-cover hover:scale-[1.05] transition-transform duration-700" />
+                <img src={heroImg} alt="Cinque Terre panorama" title="Cinque Terre" className="w-full h-[200px] md:h-[260px] object-cover hover:scale-[1.05] transition-transform duration-700" loading="lazy" width={1024} height={768} />
               </div>
               <div className="p-8 md:p-14">
                 <Home className="w-9 h-9 text-[#5bb8c1]" strokeWidth={1} />
@@ -797,7 +811,7 @@ function App() {
 
             <div className="ter-card col-span-12 md:col-span-5 md:mt-20 border border-[#5bb8c1]/15 hover:border-[#5bb8c1]/30 transition-all duration-700 bg-white/80 backdrop-blur-sm overflow-hidden rounded-sm shadow-sm">
               <div className="overflow-hidden cursor-pointer" onClick={() => setLightbox({ open: true, img: stoneEntryImg, alt: 'Portovenere' })}>
-                <img src={stoneEntryImg} alt="Portovenere" className="w-full h-[180px] md:h-[220px] object-cover hover:scale-[1.05] transition-transform duration-700" />
+                <img src={stoneEntryImg} alt="Portovenere borgo medievale" title="Portovenere" className="w-full h-[180px] md:h-[220px] object-cover hover:scale-[1.05] transition-transform duration-700" loading="lazy" width={576} height={768} />
               </div>
               <div className="p-8 md:p-12">
                 <Church className="w-8 h-8 text-[#5bb8c1]" strokeWidth={1} />
@@ -811,7 +825,7 @@ function App() {
 
             <div className="ter-card col-span-12 md:col-span-5 md:-mt-12 border border-[#5bb8c1]/15 hover:border-[#5bb8c1]/30 transition-all duration-700 bg-white/80 backdrop-blur-sm overflow-hidden rounded-sm shadow-sm">
               <div className="overflow-hidden cursor-pointer" onClick={() => setLightbox({ open: true, img: stairsImg, alt: 'Lerici e Tellaro' })}>
-                <img src={stairsImg} alt="Lerici e Tellaro" className="w-full h-[180px] md:h-[220px] object-cover hover:scale-[1.05] transition-transform duration-700" />
+                <img src={stairsImg} alt="Lerici e Tellaro borghi" title="Lerici e Tellaro" className="w-full h-[180px] md:h-[220px] object-cover hover:scale-[1.05] transition-transform duration-700" loading="lazy" width={576} height={768} />
               </div>
               <div className="p-8 md:p-12">
                 <Castle className="w-8 h-8 text-[#5bb8c1]" strokeWidth={1} />
@@ -825,7 +839,7 @@ function App() {
 
             <div className="ter-card col-span-12 md:col-span-7 border border-[#5bb8c1]/15 hover:border-[#5bb8c1]/30 transition-all duration-700 bg-white/80 backdrop-blur-sm overflow-hidden rounded-sm shadow-sm">
               <div className="overflow-hidden cursor-pointer" onClick={() => setLightbox({ open: true, img: pondImg, alt: 'Escursioni' })}>
-                <img src={pondImg} alt="Escursioni nella natura" className="w-full h-[200px] md:h-[260px] object-cover hover:scale-[1.05] transition-transform duration-700" />
+                <img src={pondImg} alt="Escursioni nella natura ligure" title="Escursioni e trekking" className="w-full h-[200px] md:h-[260px] object-cover hover:scale-[1.05] transition-transform duration-700" loading="lazy" width={576} height={768} />
               </div>
               <div className="p-8 md:p-14">
                 <Footprints className="w-9 h-9 text-[#5bb8c1]" strokeWidth={1} />
@@ -916,7 +930,7 @@ function App() {
                 <div className="flex items-start gap-3 pt-2">
                   <input type="checkbox" required checked={formData.privacy} onChange={(e) => setFormData({ ...formData, privacy: e.target.checked })} className="mt-1 w-4 h-4 accent-[#5bb8c1]" />
                   <label className="font-body text-sm text-[#2d2a26]/90 leading-relaxed">
-                    Acconsento al trattamento dei dati personali ai sensi del GDPR. *
+                    Acconsento al trattamento dei dati personali ai sensi del GDPR. Leggi la <Link to="/privacy-policy" onClick={() => window.scrollTo(0, 0)} className="text-[#5bb8c1] hover:underline">Privacy Policy</Link>. *
                   </label>
                 </div>
 
@@ -931,9 +945,9 @@ function App() {
               <div>
                 <h3 className="font-heading text-xs tracking-[0.35em] uppercase text-[#5bb8c1] mb-6">Indirizzo</h3>
                 <p className="font-body text-[#2d2a26] text-base leading-[2]">
-                  Salita del Pianello, 12<br />
-                  19131 La Spezia (SP)<br /><br />
-                  <a href="mailto:info@innovationhouse.it" className="text-[#5bb8c1] hover:text-[#4a9da5] transition-colors font-medium">info@innovationhouse.it</a>
+                  {SITE.address.street}<br />
+                  {SITE.address.cap} {SITE.address.city} ({SITE.address.province})<br /><br />
+                  <a href={`mailto:${SITE.email}`} className="text-[#5bb8c1] hover:text-[#4a9da5] transition-colors font-medium">{SITE.email}</a>
                 </p>
               </div>
 
@@ -1004,13 +1018,13 @@ function App() {
 
             <div className="col-span-6 md:col-span-3">
               <div className="space-y-3 font-body text-white/85 text-base">
-                <p>Salita del Pianello, 12</p>
-                <p>19131 La Spezia (SP)</p>
-                <p className="text-[#5bb8c1] mt-4">info@innovationhouse.it</p>
+                <p>{SITE.address.street}</p>
+                <p>{SITE.address.cap} {SITE.address.city} ({SITE.address.province})</p>
+                <p className="text-[#5bb8c1] mt-4">{SITE.email}</p>
               </div>
               <div className="mt-8 space-y-1.5 font-body text-white/65 text-xs tracking-wider">
-                <p>CITR: 011015-AFF-0538</p>
-                <p>CIN: IT011015C2ST5SAIVY</p>
+                <p>CITR: {SITE.codes.citr}</p>
+                <p>CIN: {SITE.codes.cin}</p>
               </div>
             </div>
           </div>
@@ -1021,8 +1035,8 @@ function App() {
               © 2026 Innovation House — La Spezia
             </p>
             <div className="flex gap-8">
-              <a href="#" className="font-body text-white/70 hover:text-white text-xs tracking-[0.1em] transition-colors">Privacy Policy</a>
-              <a href="#" className="font-body text-white/70 hover:text-white text-xs tracking-[0.1em] transition-colors">Cookie Policy</a>
+              <Link to="/privacy-policy" onClick={() => window.scrollTo(0, 0)} className="font-body text-white/70 hover:text-white text-xs tracking-[0.1em] transition-colors">Privacy Policy</Link>
+              <Link to="/cookie-policy" onClick={() => window.scrollTo(0, 0)} className="font-body text-white/70 hover:text-white text-xs tracking-[0.1em] transition-colors">Cookie Policy</Link>
             </div>
           </div>
         </div>
